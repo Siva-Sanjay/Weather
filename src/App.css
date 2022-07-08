@@ -28,13 +28,41 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes shake {
+  0% {
+    transform: rotate(-5deg);
   }
-  to {
-    transform: rotate(360deg);
+  
+  50% {
+    transform: rotate(5deg);
   }
+  
+  100%{
+    transform: rotate(-5deg);
+  }
+}
+
+.srchbar{
+  width:40px;
+  transition: width 500ms;
+  background-color:rgba(112, 170, 232,0.8);
+  color:transparent;
+}
+.srchbar:focus{
+  width:10rem;
+  color:black;
+  box-shadow: 0 0 0 0.25rem rgba(254, 233, 0, 0.25);
+  background-color:rgba(112, 170, 232,0.8);
+  color:white;
+}
+
+.sadsun{
+  animation-name: shake;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  height: 20rem;
+  object-fit: scale-down;
+  /transition: transform 1s ;
 }
 
 

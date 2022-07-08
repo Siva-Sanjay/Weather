@@ -5,6 +5,7 @@ import { useState } from "react";
 const Navbar=(props)=>{
 
 const [stxt,altxt]=useState('');
+let temp;
 //const [result,props.setResult]=useState([]);
 const setStext=(e)=>{
   //props.setSearchTxt(e.target.value);
@@ -21,9 +22,10 @@ const options = {
 const serch =(e)=>{
   props.setSearchTxt(stxt);
   let citys;
-  
+  temp=stxt;
+  altxt('');
   props.setState(false);
-  fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${stxt}`, options)
+  fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${temp}`, options)
     .then(response => response.json())
     .then(data=>{
       //for(let [obj,i] of data.results)
@@ -43,6 +45,7 @@ const serch =(e)=>{
             props.setResult(tmp);
             console.log(props.result);
             props.setState(true);
+            
             
         }).then( tmp=[])
         
@@ -64,8 +67,8 @@ return(
   <div className="container-fluid">
     
     <Link className="navbar-brand" to="/">
-        <img src={ima} height='60em' className="align-text-center" />  
-        My Lib
+        <img src="https://www.kindpng.com/picc/m/14-143106_weather-free-stock-photo-cloudy-clip-art-hd.png" height='60em' className="align-text-center" />  
+        Weather Man
     </Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
@@ -75,7 +78,7 @@ return(
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to="#">Home</Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <Link className="nav-link" to="/search">Link</Link>
         </li>
         <li className="nav-item dropdown">
@@ -91,12 +94,14 @@ return(
         </li>
         <li className="nav-item">
           <Link className="nav-link disabled" to='#'>Disabled</Link>
-        </li>
+        </li> */}
       </ul>
-      <form className="d-flex" role="search">
-        <input className="form-control me-2" type="text" placeholder="Search" value={stxt} aria-label="Search" onChange={setStext}/>
 
-        <Link to='/search'><button className="btn btn-outline-success" type="submit" onClick={serch}>Search</button></Link>
+      <div className="mt-n4" style={{height:"2px", transform: "rotate(40deg) scale(1.4) translate(0.3em,-0.2rem)", fontWeight:"bolder"}}><strong>/</strong></div>
+      <form className="d-flex" role="search">
+        <input className=" srchbar form-control me-2" type="text" style={{borderRadius:"50px", borderColor:"orange", borderWidth:"0.2em"}} placeholder="Search" value={stxt} aria-label="Search" onChange={setStext}/>
+
+        <Link to='/search'><button className="btn btn-outline-success d-none" type="submit" onClick={serch}>Search</button></Link>
        
       </form>
     </div>

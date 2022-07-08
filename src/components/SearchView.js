@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Hero from './Hero'
+import ima from "../images/sadsun.png";
 const SearchView=(props)=>{
     let tmp=[];
     //const [txt,seTxt]=useState("");
@@ -62,13 +63,17 @@ const SearchView=(props)=>{
             case "Thunderstorm":
                 imgurl="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/lightning-storm-over-colorado-royalty-free-image-535207585-1561414905.jpg?crop=1.00xw:0.890xh;0,0.0491xh&resize=1200:*";
                 break;
+            case "Drizzle":
+                imgurl="https://wallpapercave.com/wp/wp8260552.jpg";
+                break;
             default:
                 imgurl="https://www.kindpng.com/picc/m/14-143106_weather-free-stock-photo-cloudy-clip-art-hd.png";
+            
         };
 
 
 
-    if(obj.name.length()>0)
+    if(obj.name)
     {return <div key={i}> 
     <div className="disp card m-4  shadow-lg" >
         <img src={imgurl} className="card-img-top p-2 rounded-5" style={{height:"10em", objectFit:"cover"}} alt="..."/>
@@ -112,16 +117,16 @@ const SearchView=(props)=>{
 </div>}
 
 else
-return <div>yo nothing</div> 
+return null; 
 })
-
+console.log(returnHTML);
 return(
     <div style={{backgroundImage:"url(https://cdn.wallpapersafari.com/29/95/msYru0.jpg)", backgroundRepeat:"no-repeat", backgroundSize:"cover", height:"400vh"}}>
         <Hero txt={txt} />
         
        
         <div className="container d-flex flex-row justify-content-center " >
-        {returnHTML}
+        {returnHTML.length?returnHTML:<div className="d-flex flex-column justify-content-center"><h1 className="m-5 p-5 text-light rounded-5 border">Sorry Pal... I dont know such city :(</h1> <img src={ima} className="sadsun"/> </div>}
         </div>
     </div>
 
