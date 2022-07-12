@@ -1,5 +1,6 @@
 import './App.css';
 import { useState } from 'react';
+import CityView from './components/CityView';
 //import Hero from './components/Hero';
 import Home from './components/Home';
 import SearchView from './components/SearchView'
@@ -14,7 +15,8 @@ function App() {
       <Navbar searchTxt={searchTxt} setSearchTxt={setSearchTxt} result={result} setResult={setResult} setState={setState}/>
       <Routes>
       <Route path="/" exact element={<Home/>} />
-      <Route path="/search" element={<SearchView srch={searchTxt} res={result} state={state}/>} />
+      <Route path="/search/:id" element={<CityView/>}/>
+      <Route path="/search" exact element={<SearchView srch={searchTxt} res={result} state={state}/>} />
       </Routes>
 
      {/* <Router>
