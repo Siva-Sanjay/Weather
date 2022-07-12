@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Hero from './Hero'
 import ima from "../images/sadsun.png";
+import { Link } from 'react-router-dom';
 const SearchView=(props)=>{
     let tmp=[];
     //const [txt,seTxt]=useState("");
@@ -39,9 +40,8 @@ const SearchView=(props)=>{
 
     let imgurl;
     txt=`Search Results for ${props.srch}`;
-    
+   // const temp=Array.from(props.res)
     const returnHTML=props.res.map((obj,i)=>{
-    
         
         if(obj.name)
         switch(obj.weather[0].main) {
@@ -75,6 +75,7 @@ const SearchView=(props)=>{
 
     if(obj.name)
     {return <div key={i}> 
+    <Link to={obj.name} style={{color:"black", textDecoration:"none"}} >\
     <div className="disp card m-4  shadow-lg" >
         <img src={imgurl} className="card-img-top p-2 rounded-5" style={{height:"10em", objectFit:"cover"}} alt="..."/>
         
@@ -113,13 +114,13 @@ const SearchView=(props)=>{
 
             <p className="card-text">Temp:{obj.main.temp}</p>
         </div>
-</div>
+</div></Link>
 </div>}
 
 else
 return null; 
 })
-console.log(returnHTML);
+//console.log(returnHTML);
 return(
     <div style={{backgroundImage:"url(https://cdn.wallpapersafari.com/29/95/msYru0.jpg)", backgroundRepeat:"no-repeat", backgroundSize:"cover", height:"400vh"}}>
         <Hero txt={txt} />
