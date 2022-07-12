@@ -30,20 +30,21 @@ const serch =(e)=>{
     .then(data=>{
       //for(let [obj,i] of data.results)
       //city.push(obj.city);
-      //console.log(data);
-       citys=data.data.map((no)=>no.city) 
-       //console.log(citys)
-       props.setResult(citys);
+
+
+      //we are mapping a list of the city names, converting it into set and reconverting it to an array to eliminate evevry duplicate occurance
+       citys=new Set(data.data.map((name)=> name.city.indexOf(',')>0?name.city.substring(0,name.city.indexOf(',')):name.city ) )
+       props.setResult(Array.from(citys));
+       
        let tmp=[];
-       citys.map((obj,i)=>{
-        let city;
+       Array.from(citys).map((obj,i)=>{
+        
         fetch(`http://api.openweathermap.org/data/2.5/weather?q=${obj}&APPID=3a179819ba24328a567616d754ecf94a&units=metric`)
         .then(response=>response.json())
         .then(data=>{
             tmp=tmp.concat(data);
-            //console.log(data);
+            //as the final result is inacessible outside the fnctin we are just just returnig the updated string after every iteration
             props.setResult(tmp);
-            console.log(props.result);
             props.setState(true);
             
             
