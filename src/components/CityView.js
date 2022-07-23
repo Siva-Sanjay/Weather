@@ -8,7 +8,7 @@ import sunset from '../images/sunset.png';
 
 
 
-const CityView=(prop)=>{
+const CityView=()=>{
     const months=["January",'February','March',"April","May","June","July","August","September","October","November","December"];
     const day=["Sunday",'Monday',"Tuesday","Wednesday","Thursday","Friday","Saturday"];
     let {id} = useParams();

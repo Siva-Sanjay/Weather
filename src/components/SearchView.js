@@ -3,7 +3,7 @@ import Hero from './Hero'
 import ima from "../images/sadsun.png";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Beforeunload } from 'react-beforeunload';
-const SearchView=(props)=>{
+const SearchView=()=>{
     const [result,setResult]=useState([]);
     let tmp=[];
     //const [txt,seTxt]=useState("");

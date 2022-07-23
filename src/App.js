@@ -5,18 +5,16 @@ import CityView from './components/CityView';
 import Home from './components/Home';
 import SearchView from './components/SearchView'
 import Navbar from './components/Navbar'
-import { Route, Router, Routes} from 'react-router-dom';
+import { Route, Routes} from 'react-router-dom';
 function App() {
-  const [searchTxt, setSearchTxt]= useState("");
-  const [result,setResult]=useState([]);
-  const [state,setState]=useState(false);
+  //const [citys,setCitys]=useState({0:''})
   return (
-    <div className="lib">
-      <Navbar searchTxt={searchTxt} setSearchTxt={setSearchTxt} result={result} setResult={setResult} setState={setState}/>
+    <div className="main">
+      <Navbar />
       <Routes>
       <Route path="/" exact element={<Home/>} />
-      <Route path="/search/:id" element={<CityView/>}/>
-      <Route path="/search" exact element={<SearchView srch={searchTxt} res={result} state={state}/>} />
+      <Route path="/search/city/:id" element={ <CityView/> } />
+      <Route path="/search/:src" exact element={<SearchView />} />
       </Routes>
 
      {/* <Router>
