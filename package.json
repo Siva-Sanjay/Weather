@@ -1,14 +1,16 @@
 {
-  "home": "https://siva-sanjay.github.io/Weather/",
+  "homepage": "https://siva-sanjay.github.io/Weather/",
   "name": "mylib",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
     "gh-pages": "^4.0.0",
     "react": "^18.2.0",
+    "react-beforeunload": "^2.5.3",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"

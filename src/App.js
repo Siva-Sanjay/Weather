@@ -5,17 +5,19 @@ import CityView from './components/CityView';
 import Home from './components/Home';
 import SearchView from './components/SearchView'
 import Navbar from './components/Navbar'
-import { Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
 function App() {
   //const [citys,setCitys]=useState({0:''})
   return (
     <div className="main">
       <Navbar />
+      <BrowserRouter basename='/Weather'>
       <Routes>
       <Route path="/" exact element={<Home/>} />
       <Route path="/search/city/:id" element={ <CityView/> } />
       <Route path="/search/:src" exact element={<SearchView />} />
       </Routes>
+      </BrowserRouter>
 
      {/* <Router>
         <Route path="/"  component={Home} />
