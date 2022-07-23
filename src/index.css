@@ -5,6 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+   height: 100vh;
+}
+.html{
+  height: 100vh;
+}
+.main, #root {
+  min-height: 100vh;
 }
 *{
   box-sizing: border-box;
@@ -15,28 +22,3 @@ code {
 }
 
 
-.disp{
-  width:18rem;
-  border-radius: 30px;
-  background-color:rgba(252,252,252,0.5);
-  
-  transition: font-size 600ms ease-out 0ms,background-color 600ms ease-out 0ms ,transform 600ms ease-out 0ms ;
-
-
-}
-.disp:hover{
-  box-shadow: 20px;
-  background-color: rgba(252,252,252,0.9);;
-  transform: scale(1.07); 
- 
-
-  
-}
-.card-title{
-  font-size: 1.5em;
-}
-.container{
-  flex-wrap:wrap;
-  
-  
-}
