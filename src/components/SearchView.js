@@ -1,49 +1,84 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Hero from './Hero'
 import ima from "../images/sadsun.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Beforeunload } from 'react-beforeunload';
 const SearchView=(props)=>{
+    const [result,setResult]=useState([]);
     let tmp=[];
     //const [txt,seTxt]=useState("");
-    let txt;
-    // const options = {
-    //     method: 'GET',
-    //     headers: {
-    //         'X-RapidAPI-Key': '108543c74cmshb36998e0a928688p194c23jsnc2c86a58c18c',
-    //         'X-RapidAPI-Host': 'poke-info-api.p.rapidapi.com'
-    //     }
-    // };
-    
-    // fetch(`https://poke-info-api.p.rapidapi.com/pokemons?name=${props.srch}`, options)
-    //     .then(response => response.json())
-    //     .then(data=>{console.log(data)});
+    let txt,temp;
+    let beforesrch=true;
+    const {src}=useParams();
+console.log(src);
 
-// if(props.srch){
+
+
+
+
+const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '108543c74cmshb36998e0a928688p194c23jsnc2c86a58c18c',
+      'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+    }
+  };  //srch
+  useEffect(()=>{
     
-//     const returnHTML= props.res.map((obj,i)=>{
-//         let city;
-//         fetch(`http://api.openweathermap.org/data/2.5/weather?q=${obj}&APPID=3a179819ba24328a567616d754ecf94a`)
-//         .then(response=>response.json())
-//         .then(data=>{
-//             tmp=tmp.concat(data);
-//             //console.log(data);
-//         })
+    let citys;
+    temp=src;
+    fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${src}`, options)
+      .then(response => response.json())
+      .then(data=>{
+  
         
-//     }
-//      )
-//      console.log(tmp);
-
-// }
+        //we are mapping a list of the city names, converting it into set and reconverting it to an array to eliminate evevry duplicate occurance
+         citys=new Set(data.data.map((name)=> name.city.indexOf(',')>0?(name.city.substring(0,name.city.indexOf(',')).indexOf(src)>=0?name.city.substring(0,name.city.indexOf(',')):null):name.city ) )
+         //setResult(Array.from(citys));
+         console.log(result);
+         let tmp=[];
+         setResult(tmp);
+         Array.from(citys).map((obj,i)=>{
+          
+          fetch(`http://api.openweathermap.org/data/2.5/weather?q=${obj}&APPID=8d75ba2662e64120c2ce4ff25674a3ee&units=metric`)
+          .then(response=>response.json())
+          .then(data=>{
+              tmp=tmp.concat(data);
+              //as the final result is inacessible outside the fnctin we are just just returnig the updated string after every iteration
+              setResult(tmp);
+              console.log(result);
+              
+          })
+          
+          ///ko is a problem where there are citys but no weather reports
+      }
+       )
+    }
+     ).catch(error=>{beforesrch=false;setResult([]); console.log('inside catch')})
+  
+    ///aaaahhhh so made a list of similar searches gotta map them out in the search view 
+  //dont eleminate te below comment we are finding the list fo cities.. now we have to search weather of each city
+    
+    
+  
+    }, [src])
 
 
         
 
     let imgurl;
-    txt=`Search Results for ${props.srch}`;
+    txt=`Search Results for ${src}`;
+    //txt=`Search Results for ${props.srch}`
+    let num=0;
+    
    // const temp=Array.from(props.res)
-    const returnHTML=props.res.map((obj,i)=>{
+
+    
+
+    let returnHTML=result.map((obj,i)=>{
         
-        if(obj.name)
+        if(obj.name){
+            num++;
         switch(obj.weather[0].main) {
             case "Rain":
               imgurl="https://media.istockphoto.com/photos/transparent-umbrella-under-rain-against-water-drops-splash-background-picture-id1257951336?b=1&k=20&m=1257951336&s=170667a&w=0&h=N_dkdVEznSiN43vNpVzjnnk8xUi4lg1IFK19JXxo5Zg=";
@@ -69,18 +104,26 @@ const SearchView=(props)=>{
             default:
                 imgurl="https://www.kindpng.com/picc/m/14-143106_weather-free-stock-photo-cloudy-clip-art-hd.png";
             
-        };
+        }
+        //dict[num]=obj;
+    
+    
+    };
 
+    
 
-
+    console.log(obj);
     if(obj.name)
     {return <div key={i}> 
-    <Link to={obj.name} style={{color:"black", textDecoration:"none"}} >\
-    <div className="disp card m-4  shadow-lg" >
+    <Link to={`../search/city/${obj.name}`}  style={{color:"black", textDecoration:"none"}} >
+    <div className="disp card m-4  shadow-lg col-3" >
         <img src={imgurl} className="card-img-top p-2 rounded-5" style={{height:"10em", objectFit:"cover"}} alt="..."/>
         
         <div className="card-body">
-            <div className="card-title" ><b>{obj.name}</b></div>
+            <div className="d-flex flex-row justify-content-between">
+                <div className="card-title" ><b>{obj.name}</b></div>
+                <img className="p-3" src={`https://openweathermap.org/images/flags/${obj.sys.country.toLowerCase()}.png`} style={{objectFit:'none ', transform:'scale(1.5)'}}/>
+            </div>
             <p>{obj.weather[0].description}</p>
             <div className="temps my-4 container d-flex justify-content-evenly" >
                 
@@ -119,18 +162,34 @@ const SearchView=(props)=>{
 
 else
 return null; 
-})
-//console.log(returnHTML);
-return(
-    <div style={{backgroundImage:"url(https://cdn.wallpapersafari.com/29/95/msYru0.jpg)", backgroundRepeat:"no-repeat", backgroundSize:"cover", height:"400vh"}}>
-        <Hero txt={txt} />
-        
-       
-        <div className="container d-flex flex-row justify-content-center " >
-        {returnHTML.length?returnHTML:<div className="d-flex flex-column justify-content-center"><h1 className="m-5 p-5 text-light rounded-5 border">Sorry Pal... I dont know such city :(</h1> <img src={ima} className="sadsun"/> </div>}
-        </div>
-    </div>
 
+
+
+}
+)
+returnHTML= returnHTML.filter(function(value){ 
+    return value != null;})
+    console.log(returnHTML);
+if(!(returnHTML.length)){
+    returnHTML=<div className="d-flex flex-column "><h1 className="m-5 p-5 text-light rounded-5 border">Sorry Pal... I dont know such city :(</h1> <img src={ima} className="sadsun"/> </div>
+}
+console.log(returnHTML+""+beforesrch)
+
+
+return(
+    
+  
+
+        <div className="py-5 d-flex justify-content-center" style={{  backgroundImage: "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%)", backgroundRepeat:"no-repeat", backgroundSize:"cover", height:"100%", backgroundAttachment:'fixed' }}>
+            {/* <Hero txt={txt} /> */}
+            
+        
+            <div className="container-xl d-flex flex-row justify-content-center mx-5 " style={{flexWrap:'wrap', height:"fit-content"}} >
+            {/* {(returnHTML.length==0&&beforesrch)?<div>loading</div>:returnHTML}a */}
+            {returnHTML}
+            </div>
+        </div>
+    
 
 );
 }
