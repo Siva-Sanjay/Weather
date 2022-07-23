@@ -8,7 +8,7 @@ This is a project written entirely in React Js using React Hooks, Router DOM, Fe
 
 Contains 4 cards representing 4 major metropolitans of India which redirect to their dedicated page on click
 
-## #Search page
+### Search page
 
 Displays cards with primary weather details of the cities matching the search text which again redirects to their dedicated page on clicking
 
