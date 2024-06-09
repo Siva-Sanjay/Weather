@@ -78,16 +78,16 @@ fetch(`http://api.openweathermap.org/data/2.5/weather?q=${id}&APPID=3a179819ba24
             <div className="container">
             <div className="d-flex flex-row justify-content-between header container">
             
-                <div className="city-name">{dat.name} <img className="flag" style={{height:"2rem"}}src={`https://openweathermap.org/images/flags/${dat.sys.country.toLowerCase()}.png`} /></div>
-                <div className="date" style={{fontSize:"2em"}}>
+                <div className="city-name circle">{dat.name} <img className="flag" style={{height:"2rem"}}src={`https://openweathermap.org/images/flags/${dat.sys.country.toLowerCase()}.png`} /></div>
+                <div className="date circle" style={{fontSize:"2em"}}>
                     <span><b>{date.getUTCDate() } {months[date.getUTCMonth()]} {date.getFullYear()}</b></span><br/>
                     <span>{day[date.getDay()]}</span>
                 </div>
            </div>
-                <div className='desc text-center ' style={{fontSize:"1.5em"}}>{dat.weather[0].description}</div>
+                <div className='desc text-center ' style={{fontSize:"1.5em" ,fontFamily:"cursive", fontSize:"2.5em", textTransform:"capitalize"}}>{dat.weather[0].description}</div>
                 <div className="d-flex flex-row justify-content-center my-2">
                     <div className='temp text-center mx-5'>
-                        <span className='val fw-bold' style={{fontSize:"2em"}}>{dat.main.temp}℃</span><br/>
+                        <span className='val fw-bold' style={{fontSize:"2em"}}>{dat.main.temp} ℃</span><br/>
                         <span className='name'>Temperature</span>
                     </div>
                     <div className="Wind text-center mx-5">

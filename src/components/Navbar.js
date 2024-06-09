@@ -100,6 +100,7 @@ return(
       <form className="d-flex" role="search">
         <input className=" srchbar form-control me-2" type="text" style={{borderRadius:"50px", borderColor:"orange", borderWidth:"0.2em"}} placeholder="Search" value={stxt} aria-label="Search" onChange={setStext}/>
         <Link to={`/search/${stxt}`}><button className="srch btn btn-success" type="submit" >Search</button></Link>
+
       </form>
       </div>
 

@@ -42,7 +42,7 @@ return(
 <>
     
     <div className="d-flex flex-column justify-content-top m-auto" style={{ backgroundImage: "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%)", backgroundRepeat:"no-repeat", backgroundSize:"cover", minHeight:"100vh", backgroundAttachment:'fixed' }} >
-        <h1 className="text-center my-3"> Hello There..! </h1>
+        <h1 className="text-center my-3 hello"> <span>H</span><span>e</span><span>l</span><span>l</span><span>o</span>  <span>T</span><span>h</span><span>e</span><span>r</span><span>e</span><span>..!</span> </h1>
         <h5 className="text-center my-4"> This is your weather man. Search for your city to get the weather details there</h5>
 
         <div className="d-flex justify-content-center">
@@ -54,7 +54,7 @@ return(
                                 <div className="card-body">
                                     <h5 className="card-title">New Delhi</h5>
                                     <p className="card-text">{del.weather[0].description}<br/>{del.main.temp}°C</p>
-                                    <a href="/search/city/New%20Delhi" className="btn btn-primary">Go somewhere</a>
+                                    <a href="/search/city/New%20Delhi" className="btn btn-primary">More Details</a>
                                 </div>
                             </div>
                     </li>
@@ -65,7 +65,7 @@ return(
                             <div className="card-body">
                                 <h5 className="card-title">Mumbai</h5>
                                 <p className="card-text">{mumb.weather[0].description}<br/>{mumb.main.temp}°C</p>
-                                <a href="/search/city/mumbai" className="btn btn-primary">Go somewhere</a>
+                                <a href="/search/city/mumbai" className="btn btn-primary">More Details</a>
                             </div>
                     </div>    
                     </li>
@@ -76,7 +76,7 @@ return(
                            <div className="card-body">
                                 <h5 className="card-title">Kolkata</h5>
                                 <p className="card-text">{kol.weather[0].description}<br/>{kol.main.temp}°C</p>
-                                <a href="/search/city/kolkata" className="btn btn-primary">Go somewhere</a>
+                                <a href="/search/city/kolkata" className="btn btn-primary">More Details</a>
                             </div>
                      </div>                    
                      </li>
@@ -87,7 +87,7 @@ return(
                                 <div className="card-body">
                                     <h5 className="card-title">Hyderabd</h5>
                                     <p className="card-text">{hyd.weather[0].description}<br/>{hyd.main.temp}°C</p>
-                                    <a href="/search/city/Hyderabad" className="btn btn-primary">Go somewhere</a>
+                                    <a href="/search/city/Hyderabad" className="btn btn-primary">More Details</a>
                                 </div>
                             </div>
                     </li>

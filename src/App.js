@@ -11,13 +11,11 @@ function App() {
   return (
     <div className="main">
       <Navbar />
-      <BrowserRouter basename='/Weather'>
       <Routes>
-      <Route path="/" exact element={<Home/>} />
-      <Route path="/search/city/:id" element={ <CityView/> } />
-      <Route path="/search/:src" exact element={<SearchView />} />
+        <Route path="/" exact element={<Home/>} />
+        <Route path="/search/city/:id" element={ <CityView/> } />
+        <Route path="/search/:src" exact element={<SearchView />} />
       </Routes>
-      </BrowserRouter>
 
      {/* <Router>
         <Route path="/"  component={Home} />
