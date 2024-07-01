@@ -1,5 +1,7 @@
 //import React, { useState } from 'react';
 import cloud from "../images/cloudy.png";
+import logo from "../images/logo.png";
+
 import {Link} from 'react-router-dom';
 import { useState } from "react";
 const Navbar=()=>{
@@ -53,11 +55,13 @@ altxt(e.target.value);
   
 return(
 
-<nav className="navbar navbar-expand-lg sticky-top  opacity-2 shadow" style={{backgroundColor:"rgba(153, 204, 255,1)"}}>
-  <div className="container-fluid">
+<nav className="navbar navbar-expand-lg sticky-top   shadow" style={{backgroundColor:"rgba(153, 204, 255,0.5)", backdropFilter: "blur(5px)"}}>
+  <div className="container-fluid" >
     
-    <Link className="navbar-brand" to="/">
-        <img src={cloud} height='60em' className="align-text-center" />  
+    <Link className="navbar-brand"  to="/" style={{padding:"0",fontFamily:'establo', fontSize:"255%", color:"rgba(14,50,255,0.86)"}}>
+        {/* <img src={cloud} height='60em' className="align-text-center" />   */}
+        <img src={logo} height='60em' className="align-text-center" style={{filter: "invert(100%)"}}/>  
+
         Weather Man
     </Link>
     

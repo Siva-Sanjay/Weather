@@ -3,8 +3,10 @@ import Hero from './Hero'
 import ima from "../images/sadsun.png";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Beforeunload } from 'react-beforeunload';
+import Navbar from './Navbar';
 const SearchView=()=>{
     const [result,setResult]=useState([]);
+    const [status,setStatus]=useState({ load:true , fail:false })
     let tmp=[];
     //const [txt,seTxt]=useState("");
     let txt,temp;
@@ -30,16 +32,18 @@ const options = {
       .then(response => response.json())
       .then(data=>{
   
-        
+        console.log(data);
         //we are mapping a list of the city names, converting it into set and reconverting it to an array to eliminate evevry duplicate occurance
-         citys=new Set(data.data.map((name)=> name.city.indexOf(',')>0?(name.city.substring(0,name.city.indexOf(',')).indexOf(src)>=0?name.city.substring(0,name.city.indexOf(',')):null):name.city ) )
+         //citys=new Set(data.data.map((name)=> name.city.indexOf(',')>0?(name.city.substring(0,name.city.indexOf(',')).indexOf(src)>=0?name.city.substring(0,name.city.indexOf(',')):null):name.city ) )
+         citys=new Set(data.data.map((name)=> name.city ) )
+
          //setResult(Array.from(citys));
-         console.log(result);
+         console.log(citys);
          let tmp=[];
          setResult(tmp);
          Array.from(citys).map((obj,i)=>{
           
-          fetch(`http://api.openweathermap.org/data/2.5/weather?q=${obj}&APPID=8d75ba2662e64120c2ce4ff25674a3ee&units=metric`)
+          fetch(`https://api.openweathermap.org/data/2.5/weather?q=${obj}&APPID=8d75ba2662e64120c2ce4ff25674a3ee&units=metric`)
           .then(response=>response.json())
           .then(data=>{
               tmp=tmp.concat(data);
@@ -113,18 +117,19 @@ const options = {
 
     console.log(obj);
     if(obj.name)
-    {return <div key={i}> 
+    {return <div className="m-auto" key={i}> 
     <Link to={`../search/city/${obj.name}`}  style={{color:"black", textDecoration:"none"}} >
     <div className="disp card m-4  shadow-lg col-3" >
-        <img src={imgurl} className="card-img-top p-2 rounded-5" style={{height:"10em", objectFit:"cover"}} alt="..."/>
+        <img src={imgurl} className=" card-imge card-img-top p-2 rounded-5"  alt="..."/>
         
         <div className="card-body">
-            <div className="d-flex flex-row justify-content-between">
-                <div className="card-title" ><b>{obj.name}</b></div>
+            <div className="d-flex flox ">
+                <div className="card-title" ><b>{obj.name}</b><p>{obj.weather[0].description}</p></div>
+                
                 <img className="p-3" src={`https://openweathermap.org/images/flags/${obj.sys.country.toLowerCase()}.png`} style={{objectFit:'none ', transform:'scale(1.5)'}}/>
             </div>
-            <p>{obj.weather[0].description}</p>
-            <div className="temps my-4 container d-flex justify-content-evenly" >
+            
+            <div className="temps my-2 container d-flex justify-content-evenly" >
                 
                 <div className='temp'>
                     <div className="d-flex justify-content-around">
@@ -149,12 +154,13 @@ const options = {
                     <p>Feels like</p>
                 </div>
             </div>
-            <p className="cardtext m-1">Humidity:</p>
-            <div className="progress " style={{height: 'auto'}}>
-                <div className="progress-bar" role="progressbar" style={{width: `${obj.main.humidity}%`}} aria-valuenow={obj.main.humidity} aria-valuemin="0" aria-valuemax="100">{obj.main.humidity}%</div>
-            </div>
 
-            <p className="card-text">Temp:{obj.main.temp}</p>
+            <div className="m-2 hum">
+                <p className="cardtext m-1">Humidity:</p>
+                <div className="progress " style={{height: 'auto'}}>
+                    <div className="progress-bar" role="progressbar" style={{width: `${obj.main.humidity}%`}} aria-valuenow={obj.main.humidity} aria-valuemin="0" aria-valuemax="100">{obj.main.humidity}%</div>
+                </div>
+            </div>
         </div>
 </div></Link>
 </div>}
@@ -176,19 +182,19 @@ console.log(returnHTML+""+beforesrch)
 
 
 return(
-    
+    <>
   
-
-        <div className="py-5 d-flex justify-content-center" style={{  backgroundImage: "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%)", backgroundRepeat:"no-repeat", backgroundSize:"cover", height:"100%", backgroundAttachment:'fixed' }}>
-            {/* <Hero txt={txt} /> */}
+   
+        <div className="d-flex flex-column m-auto" style={{  backgroundImage: "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%)", backgroundRepeat:"no-repeat", backgroundSize:"cover", minHeight:"100vh", backgroundAttachment:'fixed' }}>
+        <Navbar />
             
         
-            <div className="container-xl d-flex flex-row justify-content-center mx-5 " style={{flexWrap:'wrap', height:"fit-content"}} >
+            <div className="container-xl d-flex  justify-content-center mx-auto " style={{flexWrap:'wrap', height:"fit-content"}} >
             {/* {(returnHTML.length==0&&beforesrch)?<div>loading</div>:returnHTML}a */}
             {returnHTML}
             </div>
         </div>
-    
+        </>
 
 );
 }

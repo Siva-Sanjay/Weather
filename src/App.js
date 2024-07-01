@@ -10,7 +10,7 @@ function App() {
   //const [citys,setCitys]=useState({0:''})
   return (
     <div className="main">
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         <Route path="/" exact element={<Home/>} />
         <Route path="/search/city/:id" element={ <CityView/> } />

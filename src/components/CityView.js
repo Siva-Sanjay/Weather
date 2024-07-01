@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import React, { useEffect,useMemo, useState } from "react";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import pressure from '../images/pressure.png';
 import wind from '../images/wind.png';
 import sunrise from '../images/sunrise.png';
 import sunset from '../images/sunset.png';
-
+import ima from '../images/sadsun.png';
+import Navbar from './Navbar';
 
 
 
@@ -21,14 +22,20 @@ const CityView=()=>{
         }, [])
       }
      //const [dat,setDat]=useState(null);    
-     const [innerHTML,setHTM]=useState(<div className="container">Wait a sec</div>);
+     const [innerHTML,setHTM]=useState(
+        // <div className="py-5 d-flex justify-content-center" style={{  backgroundImage: "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%)", backgroundRepeat:"no-repeat", backgroundSize:"cover", height:"100%", backgroundAttachment:'fixed' }}>
+        <div className="d-flex flex-column m-auto " style={{ color:'white',  backgroundImage: "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%)", backgroundRepeat:"no-repeat", backgroundSize:"cover", minHeight:"100vh", backgroundAttachment:'fixed' }}>
+                <Navbar />
+     <div className="d-flex flex-column m-auto"><h1 className="m-5 p-5 text-light rounded-5 border">Sorry Pal... Somethings gone wrong :(</h1> <img src={ima} className="sadsun"/> </div>
+</div>
+    );
 
  //api key 8d75ba2662e64120c2ce4ff25674a3ee
     
 
-useEffect(()=>{ 
+useMemo(()=>{ 
 
-fetch(`http://api.openweathermap.org/data/2.5/weather?q=${id}&APPID=3a179819ba24328a567616d754ecf94a&units=metric`)
+fetch(`https://api.openweathermap.org/data/2.5/weather?q=${id}&APPID=3a179819ba24328a567616d754ecf94a&units=metric`)
      .then(response=>response.json())
      .then(data=>{
          const dat=data;
@@ -37,8 +44,9 @@ fetch(`http://api.openweathermap.org/data/2.5/weather?q=${id}&APPID=3a179819ba24
          const date=new Date((data.dt+data.timezone)*1000);
          console.log(date.getUTCHours()+":"+date.getUTCMinutes())
          console.log(data.dt+data.timezone);
+         console.log("rendered");
          if(dat){
-
+            
             switch(dat.weather[0].main) {
                 case "Rain":
                   imgurl="https://media.istockphoto.com/photos/transparent-umbrella-under-rain-against-water-drops-splash-background-picture-id1257951336?b=1&k=20&m=1257951336&s=170667a&w=0&h=N_dkdVEznSiN43vNpVzjnnk8xUi4lg1IFK19JXxo5Zg=";
@@ -72,13 +80,18 @@ fetch(`http://api.openweathermap.org/data/2.5/weather?q=${id}&APPID=3a179819ba24
 
 
 
-            setHTM( <div className="py-5 d-flex justify-content-center" style={{ color:'white' ,backgroundImage: `linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%)`, backgroundRepeat:"no-repeat", backgroundSize:"cover", height:"100vh", backgroundAttachment:'fixed' }}>
+            setHTM( 
+            // <div className="py-5 d-flex flex-column justify-content-center" style={{ color:'white' ,backgroundImage: `linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%)`, backgroundRepeat:"no-repeat", backgroundSize:"cover", height:"100vh", backgroundAttachment:'fixed' }}>
+                <div className="d-flex flex-column m-auto" style={{ color:'white',  backgroundImage: "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%)", backgroundRepeat:"no-repeat", backgroundSize:"cover", minHeight:"100vh", backgroundAttachment:'fixed' }}>
+                <Navbar />
                 {/* </div><div className="container m-0" style={{backgroundImage: "linear-gradient(180deg, rgba(0,0,0, 0.4), rgba(0,0,0, 1)),url('https://wallpaperaccess.com/full/1540031.jpg')", height:'200vh' , backgroundRepeat:"no-repeat", backgroundSize:"cover",backgroundAttachment:'fixed' }}> */}
             
             <div className="container">
-            <div className="d-flex flex-row justify-content-between header container">
-            
-                <div className="city-name circle">{dat.name} <img className="flag" style={{height:"2rem"}}src={`https://openweathermap.org/images/flags/${dat.sys.country.toLowerCase()}.png`} /></div>
+            <div className="city-panel d-flex justify-content-between header container">
+            {/* <Link to={``}  style={{color:"white", textDecoration:"none"}}> */}
+            <a href={`https://www.google.com/maps/place/${dat.name}`} style={{color:"white", textDecoration:"none", fontSize:"95%"}} target="_blank">
+                <div className="city-name circle p-4">{dat.name}</div>
+              </a>  {/* </Link> */}
                 <div className="date circle" style={{fontSize:"2em"}}>
                     <span><b>{date.getUTCDate() } {months[date.getUTCMonth()]} {date.getFullYear()}</b></span><br/>
                     <span>{day[date.getDay()]}</span>
@@ -143,14 +156,14 @@ fetch(`http://api.openweathermap.org/data/2.5/weather?q=${id}&APPID=3a179819ba24
         }
         }); 
 
-    },[]);
+   },[]); //well the useEffect doenst actually change much, this is gonna be rendered only one time anyways
        
     console.log('out');
     
    
 return innerHTML;
    
-}
+};
 
 
 
