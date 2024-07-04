@@ -96,7 +96,7 @@
   border-radius: 30px;
   background-color:rgba(252,252,252,0.5);
   
-  transition: font-size 600ms ease-out 0ms,background-color 600ms ease-out 0ms ,transform 600ms ease-out 0ms ;
+  transition: font-size 600ms ease-out 0ms,background-color 600ms ease-out 0ms ,transform 400ms ease-out 0ms , filter 300ms ease-out 0ms;
 
 
 }
@@ -163,11 +163,8 @@
   }
 
 
-.disp:hover {
-  box-shadow: 20px;
-  background-color: rgba(252,252,252,0.9);;
-  transform: scale(1.07); 
- }
+
+
 .card-title b{
   font-size: 1.5em;
 }
@@ -177,16 +174,29 @@
   max-height: 100%;
 }
 
-.weathercard:hover, .metro-card:hover{
+ .metro-card:hover{
   transform: scale(1.07); 
   
 }
   
 
+/* .searchhold:hover .disp:not(:hover) */
+.searchhold:has(.disp:hover) .disp:not(:hover) {
+ filter: blur(2px) brightness(0.9);
+}
+.disp:hover {
+  box-shadow: 20px;
+  background-color: rgba(252,252,252,0.9);;
+  transform: scale(1.07); 
+ }
+
+
+
+
 .icon{
-  height: 5em;
-  width: 5em;
-  margin: 1em;
+  height: 7em;
+  width: 7em;
+  margin: 0.2em;
 }
 
 .weathercard{
@@ -197,7 +207,7 @@
   align-items: center;
   height:fit-content;
   padding: auto;
-  transition: font-size 600ms ease-out 0ms,background-color 600ms ease-out 0ms ,transform 300ms ease-out 0ms ;
+  /* transition: font-size 400ms ease-out 0ms,background-color 400ms ease-out 0ms ,transform 300ms ease-out 0ms ; */
 }
  .paramvalue{
   font-size: 3em;
@@ -238,6 +248,12 @@
   display:flex;
   flex-direction: row;
   
+}
+
+.weathericon{
+  height:150px;
+  position:relative;
+  padding:auto;
 }
 
 .metro-card{
@@ -301,13 +317,17 @@
       align-items: center;
 
     }
+    
     .disp{
       width:80vw;
       overflow:hidden;
       /* border-radius: 0px; */
       /* background-color:rgba(8, 0, 0, 0.5); */
-      transition: font-size 600ms ease-out 0ms,background-color 600ms ease-out 0ms ,transform 600ms ease-out 0ms ;
+      transition: font-size 400ms ease-out 0ms,background-color 400ms ease-out 0ms ,transform 400ms ease-out 0ms, filter 300ms ease-out ;
     }
+    
+
+
     .card-body{
       display:flex;
       flex-direction: row;

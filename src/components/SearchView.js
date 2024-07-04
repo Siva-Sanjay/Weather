@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
-import Hero from './Hero'
+
 import ima from "../images/sadsun.png";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Beforeunload } from 'react-beforeunload';
 import Navbar from './Navbar';
 const SearchView=()=>{
     const [result,setResult]=useState([]);
-    const [status,setStatus]=useState({ load:true , fail:false })
+    //const [status,setStatus]=useState(true);
     let tmp=[];
-    //const [txt,seTxt]=useState("");
+   
     let txt,temp;
     let beforesrch=true;
     const {src}=useParams();
 console.log(src);
-
 
 
 
@@ -41,6 +40,7 @@ const options = {
          console.log(citys);
          let tmp=[];
          setResult(tmp);
+         
          Array.from(citys).map((obj,i)=>{
           
           fetch(`https://api.openweathermap.org/data/2.5/weather?q=${obj}&APPID=8d75ba2662e64120c2ce4ff25674a3ee&units=metric`)
@@ -48,6 +48,7 @@ const options = {
           .then(data=>{
               tmp=tmp.concat(data);
               //as the final result is inacessible outside the fnctin we are just just returnig the updated string after every iteration
+              
               setResult(tmp);
               console.log(result);
               
@@ -57,7 +58,7 @@ const options = {
       }
        )
     }
-     ).catch(error=>{beforesrch=false;setResult([]); console.log('inside catch')})
+     ).catch(error=>{beforesrch=false;setResult([]); console.log('inside catch'+error)})
   
     ///aaaahhhh so made a list of similar searches gotta map them out in the search view 
   //dont eleminate te below comment we are finding the list fo cities.. now we have to search weather of each city
@@ -176,7 +177,7 @@ returnHTML= returnHTML.filter(function(value){
     return value != null;})
     console.log(returnHTML);
 if(!(returnHTML.length)){
-    returnHTML=<div className="d-flex flex-column "><h1 className="m-5 p-5 text-light rounded-5 border">Sorry Pal... I dont know such city :(</h1> <img src={ima} className="sadsun"/> </div>
+    returnHTML=<div className="d-flex flex-column "><h1 className="m-5 p-5 text-light rounded-5 border">{"Sorry Pal... I dont know such city :("}</h1> <img src={ima} className="sadsun"/> </div>
 }
 console.log(returnHTML+""+beforesrch)
 
@@ -189,7 +190,7 @@ return(
         <Navbar />
             
         
-            <div className="container-xl d-flex  justify-content-center mx-auto " style={{flexWrap:'wrap', height:"fit-content"}} >
+            <div className="container-xl d-flex searchhold justify-content-center mx-auto " style={{flexWrap:'wrap', height:"fit-content"}} >
             {/* {(returnHTML.length==0&&beforesrch)?<div>loading</div>:returnHTML}a */}
             {returnHTML}
             </div>

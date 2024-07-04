@@ -1,4 +1,4 @@
-import Hero from './Hero'
+
 import ima from '../images/sadsun.png'
 import { useEffect, useState } from 'react';
 import delhi from '../images/delhi.jpg';
@@ -45,7 +45,7 @@ return(
     
     <div className="d-flex flex-column justify-content-toop m-auto" style={{ backgroundImage: "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 14%, rgba(0,212,255,1) 100%)", backgroundRepeat:"no-repeat", backgroundSize:"cover", minHeight:"100vh", backgroundAttachment:'fixed' }} >
     <Navbar />
-        <h1 className="text-center my-3 hello"> <span>H</span><span>e</span><span>l</span><span>l</span><span>o</span>  <span>T</span><span>h</span><span>e</span><span>r</span><span>e</span><span>..!</span> </h1>
+        <h1 className="text-center my-3 hello" > <span>H</span><span>e</span><span>l</span><span>l</span><span>o</span>  <span>T</span><span>h</span><span>e</span><span>r</span><span>e</span><span>..!</span> </h1>
         <h5 className="text-center my-4"> This is your weather man. Search for your city to get the weather details there</h5>
 
         <div className="d-flex justify-content-center">
